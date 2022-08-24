@@ -2,7 +2,9 @@
 
 $color-primary: rgb(0, 226, 156)!default;
 $color-secondary: #26464d!default;
+
 $color-secondary-light: color.scale($color-secondary, $lightness: 20%)!default;
+$color-secondary-dark: #011820!default;
 
 /** Breakpoints */
 /** 1200px oder schmaler */
