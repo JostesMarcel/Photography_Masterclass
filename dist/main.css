@@ -252,6 +252,35 @@ html {
   top: -0.075em;
 }
 
+.button {
+  display: inline-block;
+  border: 0.0625rem solid currentColor;
+  border-radius: 100rem;
+  color: rgb(0, 226, 156);
+  text-decoration: none;
+  padding: 1rem 6rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.button:hover {
+  color: #1cffb9;
+}
+
+.button--background-blur {
+  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
+}
+
+.button--white {
+  color: white;
+  text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+}
+.button--white:hover {
+  color: rgb(230, 230, 230);
+}
+
 .motivation {
   margin-top: 2rem;
   padding-bottom: 3rem;
@@ -382,7 +411,7 @@ html {
 .tours {
   background-color: #011820;
   position: relative;
-  padding-bottom: 5rem;
+  padding-bottom: 8.5rem;
 }
 
 .tours::after, .tours::before {
@@ -394,9 +423,11 @@ html {
   text-align: center;
   text-transform: uppercase;
   color: #011820;
-  font-size: 10rem;
+  font-size: min(11.1111111111vw, 10rem);
   font-weight: bold;
   text-shadow: 0 0 1px white;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @supports (-webkit-text-stroke: 2px rgba(255, 255, 255, 0.2)) or (text-stroke: 2px rgba(255, 255, 255, 0.2)) {
@@ -440,25 +471,31 @@ html {
   letter-spacing: 0.1em;
   text-align: center;
   padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-bottom: 1rem;
   font-size: 2rem;
 }
 
 .tours__cards {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .tours__card {
-  width: 20%;
+  flex: 0 0 14.2rem;
   position: relative;
+  margin-top: 3rem;
   height: 21rem;
   overflow: hidden;
+  box-shadow: 0 0 1rem transparent;
   transform: scale(1);
-  transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out, z-index 0.25s linear, box-shadow 0.25s ease-in-out;
 }
 .tours__card:hover {
-  transform: scale(1.1);
   box-shadow: 0 0 0.25rem black;
+  transform: scale(1.1);
+  transition: transform 0.25s ease-in-out, z-index 0s linear, box-shadow 0.25s ease-in-out;
+  z-index: 1000;
 }
 
 .tours__card-icon-background {
@@ -500,6 +537,7 @@ html {
   width: 3rem;
   color: white;
   display: block;
+  filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
 }
 
 .tours__card-content {
@@ -521,6 +559,9 @@ html {
 .tours__card-heading {
   font-size: 1.1rem;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .tours_card-location {
@@ -536,6 +577,9 @@ html {
 .tours__card-location-text {
   line-height: 1.9rem;
   padding-left: 0.15rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .tours_card-desc {
@@ -545,6 +589,89 @@ html {
   background-position-y: top;
   background-repeat: no-repeat;
   background-size: 100% 0.125rem;
+}
+
+.story {
+  position: relative;
+  overflow: hidden;
+}
+
+.story__video {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+@supports (object-fit: cover) and (object-position: center center) {
+  .story__video {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+.story__video-colorize {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(38, 70, 77, 0.5);
+}
+
+.story__container {
+  position: relative;
+  z-index: 2;
+  max-width: 75rem;
+  margin: 0px auto;
+  padding: 0 2rem;
+}
+.story__container::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+@media (max-width: 36em) {
+  .story__container {
+    padding: 0 1rem;
+  }
+}
+
+.story__heading {
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-size: 2rem;
+  text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+}
+
+.story__desc {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: white;
+  column-count: 2;
+  column-gap: 4rem;
+  column-rule: 0.125rem solid rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+  text-align: justify;
+}
+@media (max-width: 48em) {
+  .story__desc {
+    column-count: 1;
+    text-align: left;
+  }
+}
+
+.story__book {
+  text-align: center;
+  padding: 4rem 0;
 }
 
 /*# sourceMappingURL=main.css.map */

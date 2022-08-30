@@ -1,0 +1,32 @@
+@use '../abstracts' as *;
+@use 'sass:color';
+
+.button{
+    display: inline-block;
+    border: 0.0625rem solid currentColor;
+    border-radius: 100rem;
+    color: $color-primary;
+    text-decoration: none;
+    padding: 1rem 6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.25rem;
+
+    &:hover{
+        color: color.scale($color-primary, $lightness: 20%)
+    }
+}
+
+.button--background-blur{
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+}
+
+.button--white{
+    color: white;
+    text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+    &:hover{
+        color: rgb(230, 230, 230);
+    }
+}

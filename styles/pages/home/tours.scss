@@ -6,7 +6,7 @@ $-tours-animation-duration: 0.25s;
 .tours{
     background-color: $color-secondary-dark;
     position: relative;
-    padding-bottom: 5rem;
+    padding-bottom: 8.5rem;
 }
 
 %tours__before-and-after{
@@ -18,9 +18,11 @@ $-tours-animation-duration: 0.25s;
     text-align: center;
     text-transform: uppercase;
     color: $color-secondary-dark;
-    font-size: 10rem;
+    font-size: min(calc(100vw / 9), 10rem);
     font-weight: bold;
     text-shadow: 0 0 1px white;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 @mixin -tours__before-and-after-stroke($color) {
@@ -56,25 +58,35 @@ $-tours-animation-duration: 0.25s;
     letter-spacing: 0.1em;
     text-align: center;
     padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
     font-size: 2rem;
 }
 
 .tours__cards{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .tours__card{
-    width: 20%;
+    flex: 0 0 (71rem / 5);
     position: relative;
+    margin-top: 3rem;
     height: 21rem;
     overflow: hidden;
+    box-shadow: 0 0 1rem transparent;
     transform: scale(1);
-    transition: transform $-tours-animation-duration ease-in-out;
+    transition: transform $-tours-animation-duration ease-in-out,
+                z-index $-tours-animation-duration linear,
+                box-shadow $-tours-animation-duration ease-in-out;
 
     &:hover{
-        transform: scale(1.1);
         box-shadow: 0 0 0.25rem black;
+        transform: scale(1.1);
+        transition: transform $-tours-animation-duration ease-in-out,
+                    z-index 0s linear,
+                    box-shadow $-tours-animation-duration ease-in-out;
+        z-index: 1000;
     }
 }
 
@@ -122,6 +134,7 @@ $-tours-animation-duration: 0.25s;
     width: $-tours-icon-width;
     color: white;
     display: block;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
 }
 
 .tours__card-content{
@@ -145,6 +158,9 @@ $-tours-animation-duration: 0.25s;
 .tours__card-heading{
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .tours_card-location{
@@ -160,6 +176,9 @@ $-tours-animation-duration: 0.25s;
 .tours__card-location-text{
     line-height: 1.9rem;
     padding-left: 0.15rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .tours_card-desc{
