@@ -1,0 +1,69 @@
+@use '../../abstracts' as *;
+@use 'sass:color';
+
+$-offers-card-border-width: calc(1rem / 16);
+$-offers-card-margin: 0.66rem;
+
+.offers{
+    background-color: rgb(240, 240, 240);
+    min-height: 5rem;
+}
+
+.offers__container{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    margin-left: -$-offers-card-margin;
+    margin-right: -$-offers-card-margin;
+}
+
+.offers__card{
+    flex: 1 0 0px;
+    padding: 0;
+    margin: 0 $-offers-card-margin;
+    background-color: white;
+    box-shadow: 0.5rem 0.5rem 2rem black;
+    border-left: $-offers-card-border-width solid #e2e2e2;
+    border-right: $-offers-card-border-width solid #e2e2e2;
+    border-top: $-offers-card-border-width solid #e2e2e2;
+    
+    position: relative;
+
+    &::after{
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: -$-offers-card-border-width;
+        right: -$-offers-card-border-width;
+        height: 0.75rem;
+        border-left: $-offers-card-border-width solid color.scale($color-primary, $saturation: -50%, $lightness: 25%);
+        border-right: $-offers-card-border-width solid color.scale($color-primary, $saturation: -50%, $lightness: 25%);
+        background-color: $color-primary;
+    }
+}
+
+.offers__image-container{
+    position: relative;
+    margin: -$-offers-card-border-width -$-offers-card-border-width 0 -$-offers-card-border-width;
+    background-color: $color-primary;
+
+    &::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 5rem;
+        background-image: linear-gradient(-$slope-incline, white 49.7%, transparent 50.3%);
+        background-repeat: no-repeat;
+        background-position: 50% 100%;
+    }
+}
+
+.offers__image{
+    width: 100%;
+    filter: grayscale(100%);
+    mix-blend-mode: multiply;
+}
