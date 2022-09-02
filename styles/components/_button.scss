@@ -30,3 +30,20 @@
         color: rgb(230, 230, 230);
     }
 }
+
+.button--secondary{
+    background-color: $color-secondary;
+    color: white;
+    border: 0.125rem solid  $color-secondary;
+
+    &:hover{
+        color: white;
+        background-color: $color-secondary-dark;
+        border: 0.125rem solid  $color-secondary-dark;
+    }
+}
+
+.button--slim{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
