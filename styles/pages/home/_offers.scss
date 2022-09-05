@@ -22,20 +22,11 @@ $-half-pixel-width: calc(1rem / 16);
     margin-top: calc($-offers-card-margin * -2);
 }
 
-.offers__card{
+.offers__card-container{
     $-width: calc(100% / 3);
 
     width: calc(#{$-width} - #{($-offers-card-margin * 2 + 0.001rem)});
-    padding: 0 0 2rem 0;
     margin: calc(#{$-offers-card-margin * 2}) $-offers-card-margin 0 $-offers-card-margin;
-
-    background-color: white;
-    box-shadow: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.5);
-    border-left: $-offers-card-border-width solid $-offers-card-border-color;
-    border-right: $-offers-card-border-width solid $-offers-card-border-color;
-    border-top: $-offers-card-border-width solid $-offers-card-border-color;
-    
-    position: relative;
 
     @media (max-width: $breakpoint-md) {
         $-width-md: calc(100% / 2);
@@ -45,6 +36,19 @@ $-half-pixel-width: calc(1rem / 16);
     @media (max-width: $breakpoint-sm) {
         width: calc(100% - #{($-offers-card-margin * 2 + 0.001rem)});
     }
+}
+
+.offers__card{
+    box-shadow: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.offers__card-primary{
+    padding: 0 0 2rem 0;
+    background-color: white;
+    border-left: $-offers-card-border-width solid $-offers-card-border-color;
+    border-right: $-offers-card-border-width solid $-offers-card-border-color;
+    border-top: $-offers-card-border-width solid $-offers-card-border-color;
 
     &::after{
         content: '';
@@ -170,7 +174,20 @@ $-half-pixel-width: calc(1rem / 16);
     line-height: 0.9em;
 }
 
-.offers_card-hover{
+@mixin offers__card-hover-bg($alpha-dt: 0%) {
+    background-image: linear-gradient(90deg, 
+        transparent calc(50% - #{$-half-pixel-width}),
+        white calc(50% - #{$-half-pixel-width}),
+        white calc(50% + #{$-half-pixel-width}),
+        transparent calc(50% + #{$-half-pixel-width})
+    ), linear-gradient(135deg, 
+        $color-primary 0%,
+        color.scale($color-primary, $alpha: $alpha-dt) 0%,
+        color.scale($color-primary, $lightness: -20%, $alpha: $alpha-dt) 100%
+    );
+}
+
+.offers__card-hover{
     position: absolute;
     top: -$-offers-card-border-width;
     left: -$-offers-card-border-width;
@@ -179,15 +196,8 @@ $-half-pixel-width: calc(1rem / 16);
     z-index: 2;
 
     background-color: $color-primary;
-    background-image: linear-gradient(90deg, 
-        transparent calc(50% - #{$-half-pixel-width}),
-        white calc(50% - #{$-half-pixel-width}),
-        white calc(50% + #{$-half-pixel-width}),
-        transparent calc(50% + #{$-half-pixel-width})
-    ), linear-gradient(135deg, 
-        $color-primary 0%,
-        color.scale($color-primary, $lightness: -20%) 100%
-    );
+    @include offers__card-hover-bg();
+    
     background-repeat: no-repeat;
     background-position: center top, center center;
     background-size: 100% calc(50% - 4rem), 100% 100%;
@@ -204,3 +214,76 @@ $-half-pixel-width: calc(1rem / 16);
     }
 }
 
+.offers__card-container--flip{
+    perspective: 50rem;
+    
+    .offers__card {
+        transition: transform 1s ease-in-out;
+        transform-style: preserve-3d;
+    }
+
+    &:hover .offers__card {
+        transform: rotateY(180deg);
+    }
+    
+    .offers__card-primary{
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: rotateY(0deg);
+        transform-style: preserve-3d;
+    }
+
+    .offers__card-hover{
+        transform: rotateY(180deg);
+        opacity: 1;
+
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+}
+
+%offers__card-container--3d-effect {
+    perspective: 50rem;
+
+    .offers__card{
+        transition: transform 0.5s ease-in-out;
+        transform: rotateX(calc(calc(var(--mouse-y, 0.5) - 0.5) * -20deg)) 
+                    rotateY(calc(calc(var(--mouse-x, 0.5) - 0.5) * 20deg));
+    }
+    
+    &:hover .offers__card{
+        transition: transform 0.1s linear;
+    }
+}
+
+.offers__card-container--3d{
+    @extend %offers__card-container--3d-effect;
+
+    .offers__card-hover{
+        display: none;
+    }
+}
+
+.offers__card-container--3d-hover{
+    @extend %offers__card-container--3d-effect;
+
+    .offers__card-primary{
+        transform-style: preserve-3d;
+        filter: blur(0rem);
+        transition: filter 0.5 ease-in-out;
+    }
+
+    .offers__card{
+        transform-style: preserve-3d;
+    }
+
+    .offers__card-hover{
+        background-color: transparent;
+        @include offers__card-hover-bg(-25%);
+        transform: translateZ(1rem);
+    }
+
+    &:hover .offers__card-primary{
+        filter: blur(0.5rem);
+    }
+}
