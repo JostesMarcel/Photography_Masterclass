@@ -43,3 +43,23 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 } else {
     document.addEventListener("DOMContentLoaded", addMousePositionToCss, false);
 }
+
+// funtion um beim  schließen des Modal Fensters auf der selben Position zu bleiben,
+// statt wieder am Anfang der Seite zu landen 
+function bookingModalFixClose() {
+    const elements = document.querySelectorAll(".booking-modal__close")
+    for (const element of elements) {
+        element.addEventListener("click", function () {
+            const scrollY = window.scrollY;
+            const scrollX = window.scrollX;
+            window.setTimeout(function () {
+                window.scrollTo({ top: scrollY, left: scrollX })
+            }, 1)
+        })
+    }
+}
+if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(bookingModalFixClose, 1)
+} else {
+    document.addEventListener("DOMContentLoaded", bookingModalFixClose, false)
+}
