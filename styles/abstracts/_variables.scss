@@ -16,10 +16,13 @@ $breakpoint-lg: 75em!default;
 $breakpoint-md: 62em!default;
 /** 768px oder schmaler */
 $breakpoint-sm: 48em!default;
-    /** 576px oder schmaler */
+/** 576px oder schmaler */
 $breakpoint-xs: 36em!default;
+/** 400px oder schmaler */
+$breakpoint-xxs: 25em!default;
 
 @media (max-width: $breakpoint-lg) {}
 @media (max-width: $breakpoint-md) {}
 @media (max-width: $breakpoint-sm) {}
 @media (max-width: $breakpoint-xs) {}
+@media (max-width: $breakpoint-xxs) {}
